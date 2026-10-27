@@ -1,0 +1,37 @@
+yaml
+
+name: Atualizar Pasos Fronteiricos
+
+on:
+  schedule:
+    # Roda diariamente às 06:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Permite rodar manualmente a qualquer momento
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Executar Scraper
+        run: python scraper.py
+
+      - name: Salvar alterações no GitHub
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add pasos.json
+          git commit -m "Atualização automática dos pasos" || exit 0
+          git push
