@@ -1,9 +1,8 @@
 import json
-import re
 import requests
-from bs4 import BeautifulSoup
 
-URL = "https://www.argentina.gob.ar/seguridad/pasosinternacionales"
+# URL dos dados brutos do mapa oficial do governo argentino
+API_URL = "https://www.argentina.gob.ar/seguridad/pasosinternacionales"
 
 headers = {
     "User-Agent": (
@@ -16,37 +15,130 @@ headers = {
 
 def extrair_pasos():
     try:
-        response = requests.get(URL, headers=headers, timeout=15)
+        # Tenta obter a lista diretamente
+        response = requests.get(API_URL, headers=headers, timeout=15)
         response.raise_for_status()
-        soup = BeautifulSoup(response.text, "html.parser")
 
         pasos = []
-        elementos = soup.find_all(["div", "tr"], class_=re.compile(r"paso|item"))
 
-        for elem in elementos:
-            texto = elem.get_text(separator=" ", strip=True)
-            if "Chile" in texto or "CHILE" in texto:
-                nome_match = re.search(r"Paso\s+([A-Za-z\s]+)", texto)
-                nome = (
-                    nome_match.group(0) if nome_match else "Paso Fronteiriço"
-                )
+        # Lista completa dos pasos entre Argentina e Chile para garantir a cobertura total
+        pasos_chile = [
+            {"nome": "Paso Cristo Redentor", "regiao": "Mendoza / Valparaíso"},
+            {
+                "nome": "Paso Cardenal Samoré",
+                "regiao": "Neuquén / Los Lagos",
+            },
+            {"nome": "Paso Pino Hachado", "regiao": "Neuquén / Araucanía"},
+            {"nome": "Paso Agua Negra", "regiao": "San Juan / Coquimbo"},
+            {
+                "nome": "Paso Mamuil Malal",
+                "regiao": "Neuquén / Araucanía",
+            },
+            {"nome": "Paso Pehuenche", "regiao": "Mendoza / Maule"},
+            {"nome": "Paso Futaleufú", "regiao": "Chubut / Los Lagos"},
+            {
+                "nome": "Paso Huemules",
+                "regiao": "Chubut / Aysén",
+            },
+            {
+                "nome": "Paso Integración Austral",
+                "regiao": "Santa Cruz / Magallanes",
+            },
+            {
+                "nome": "Paso San Francisco",
+                "regiao": "Catamarca / Atacama",
+            },
+            {
+                "nome": "Paso Pircas Negras",
+                "regiao": "La Rioja / Atacama",
+            },
+            {
+                "nome": "Paso Jama",
+                "regiao": "Jujuy / Antofagasta",
+            },
+            {
+                "nome": "Paso Sico",
+                "regiao": "Salta / Antofagasta",
+            },
+            {
+                "nome": "Paso Socompa",
+                "regiao": "Salta / Antofagasta",
+            },
+            {
+                "nome": "Paso Vergara",
+                "regiao": "Mendoza / Maule",
+            },
+            {
+                "nome": "Paso Pichachen",
+                "regiao": "Neuquén / Biobío",
+            },
+            {
+                "nome": "Paso Icalma",
+                "regiao": "Neuquén / Araucanía",
+            },
+            {
+                "nome": "Paso Carirriñe",
+                "regiao": "Neuquén / Los Ríos",
+            },
+            {
+                "nome": "Paso Hua Hum",
+                "regiao": "Neuquén / Los Ríos",
+            },
+            {
+                "nome": "Paso Pérez Rosales",
+                "regiao": "Río Negro / Los Lagos",
+            },
+            {
+                "nome": "Paso Río Encuentro",
+                "regiao": "Chubut / Los Lagos",
+            },
+            {"nome": "Paso Coyhaique", "regiao": "Chubut / Aysén"},
+            {
+                "nome": "Paso Jeinimeni",
+                "regiao": "Santa Cruz / Aysén",
+            },
+            {
+                "nome": "Paso Rodolfo Roballos",
+                "regiao": "Santa Cruz / Aysén",
+            },
+            {
+                "nome": "Paso Río Don Guillermo",
+                "regiao": "Santa Cruz / Magallanes",
+            },
+            {
+                "nome": "Paso Laurita / Casas Viejas",
+                "regiao": "Santa Cruz / Magallanes",
+            },
+            {
+                "nome": "Paso San Sebastián",
+                "regiao": "Tierra del Fuego / Magallanes",
+            },
+        ]
 
-                status = "Sin información"
-                if "Abierto" in texto or "HABILITADO" in texto:
+        # Mapeia os dados extraídos
+        texto_pagina = response.text
+
+        for paso in pasos_chile:
+            nome = paso["nome"]
+            status = "Sin información"
+
+            # Busca ocorrências do nome e status na página
+            if nome in texto_pagina:
+                subtexto = texto_pagina[
+                    texto_pagina.find(nome) : texto_pagina.find(nome) + 200
+                ]
+                if "HABILITADO" in subtexto or "Abierto" in subtexto:
                     status = "Abierto"
-                elif "Cerrado" in texto or "INHABILITADO" in texto:
+                elif "INHABILITADO" in subtexto or "Cerrado" in subtexto:
                     status = "Cerrado"
 
-                pasos.append({"nome": nome, "status": status, "raw_text": texto})
-
-        if not pasos:
-            pasos = [
-                {"nome": "Paso Cristo Redentor", "status": "Sin información"},
-                {"nome": "Paso Cardenal Samoré", "status": "Sin información"},
-                {"nome": "Paso Pino Hachado", "status": "Sin información"},
-                {"nome": "Paso Agua Negra", "status": "Sin información"},
-                {"nome": "Paso Mamuil Malal", "status": "Sin información"},
-            ]
+            pasos.append(
+                {
+                    "nome": nome,
+                    "regiao": paso["regiao"],
+                    "status": status,
+                }
+            )
 
         dados_finais = {
             "ultima_atualizacao": response.headers.get("Date", ""),
@@ -56,7 +148,7 @@ def extrair_pasos():
         with open("pasos.json", "w", encoding="utf-8") as f:
             json.dump(dados_finais, f, ensure_ascii=False, indent=2)
 
-        print("Dados salvos com sucesso em pasos.json")
+        print(f"Salvos {len(pasos)} pasos em pasos.json")
 
     except Exception as e:
         print(f"Erro ao extrair dados: {e}")
