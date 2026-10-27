@@ -1,24 +1,139 @@
 {
-  "ultima_atualizacao": "Tue, 27 Oct 2026 22:14:35 GMT",
+  "ultima_atualizacao": "Tue, 27 Oct 2026 22:20:01 GMT",
   "pasos": [
     {
       "nome": "Paso Cristo Redentor",
+      "regiao": "Mendoza / Valparaíso",
       "status": "Sin información"
     },
     {
       "nome": "Paso Cardenal Samoré",
+      "regiao": "Neuquén / Los Lagos",
       "status": "Sin información"
     },
     {
       "nome": "Paso Pino Hachado",
+      "regiao": "Neuquén / Araucanía",
       "status": "Sin información"
     },
     {
       "nome": "Paso Agua Negra",
+      "regiao": "San Juan / Coquimbo",
       "status": "Sin información"
     },
     {
       "nome": "Paso Mamuil Malal",
+      "regiao": "Neuquén / Araucanía",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Pehuenche",
+      "regiao": "Mendoza / Maule",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Futaleufú",
+      "regiao": "Chubut / Los Lagos",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Huemules",
+      "regiao": "Chubut / Aysén",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Integración Austral",
+      "regiao": "Santa Cruz / Magallanes",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso San Francisco",
+      "regiao": "Catamarca / Atacama",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Pircas Negras",
+      "regiao": "La Rioja / Atacama",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Jama",
+      "regiao": "Jujuy / Antofagasta",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Sico",
+      "regiao": "Salta / Antofagasta",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Socompa",
+      "regiao": "Salta / Antofagasta",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Vergara",
+      "regiao": "Mendoza / Maule",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Pichachen",
+      "regiao": "Neuquén / Biobío",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Icalma",
+      "regiao": "Neuquén / Araucanía",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Carirriñe",
+      "regiao": "Neuquén / Los Ríos",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Hua Hum",
+      "regiao": "Neuquén / Los Ríos",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Pérez Rosales",
+      "regiao": "Río Negro / Los Lagos",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Río Encuentro",
+      "regiao": "Chubut / Los Lagos",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Coyhaique",
+      "regiao": "Chubut / Aysén",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Jeinimeni",
+      "regiao": "Santa Cruz / Aysén",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Rodolfo Roballos",
+      "regiao": "Santa Cruz / Aysén",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Río Don Guillermo",
+      "regiao": "Santa Cruz / Magallanes",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso Laurita / Casas Viejas",
+      "regiao": "Santa Cruz / Magallanes",
+      "status": "Sin información"
+    },
+    {
+      "nome": "Paso San Sebastián",
+      "regiao": "Tierra del Fuego / Magallanes",
       "status": "Sin información"
     }
   ]
